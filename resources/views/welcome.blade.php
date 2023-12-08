@@ -172,19 +172,27 @@
 
       <div class="container">
       <header class="border-bottom lh-1 py-3">
-      <div class="row flex-nowrap justify-content-between align-items-center">
-        <div class="col-4 pt-1">
-        </div>
-        <div class="col-4 text-center">
-          <a class="blog-header-logo text-body-emphasis text-decoration-none" href="https://ultrahyphen.test/">{{ config('app.name', 'Laravel') }}</a>
-        </div>
-        <div class="col-4 d-flex justify-content-end align-items-center">
-          <a class="btn btn-sm btn-outline-secondary" href="{{ route('login') }}">Login</a>
-          @if (Route::has('register'))
-            <a class="btn btn-sm btn-outline-primary" href="{{ route('register') }}" style="margin-left:10px;">Register</a>
-          @endif
-        </div>
-      </div>
+        <nav class="navbar bg-light fixed-top">
+          <div class="container-fluid">
+            <a class="navbar-brand blog-header-logo text-body-emphasis text-decoration-none" href="{{  url('') }}">{{ config('app.name', 'Laravel') }}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+              <div class="offcanvas-header">
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <div class="col-4 d-flex justify-content-end align-items-center">
+                  <a class="btn btn-sm btn-outline-secondary" href="{{ route('login') }}">Login</a>
+                  @if (Route::has('register'))
+                    <a class="btn btn-sm btn-outline-primary" href="{{ route('register') }}" style="margin-left:10px;">Register</a>
+                  @endif
+                </div>
+              </div>
+            </div>
+          </div>
+        </nav>
       </header>
       <div class="nav-scroller py-1 mb-3 border-bottom">
       <nav class="nav nav-underline justify-content-between">
