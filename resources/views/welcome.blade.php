@@ -183,7 +183,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
               </div>
               <div class="offcanvas-body">
-                <div class="col-4 d-flex justify-content-end align-items-center">
+                <div class="col-4 d-flex justify-content-end align-items-center ms-4">
                   <a class="btn btn-sm btn-outline-secondary" href="{{ route('login') }}">Login</a>
                   @if (Route::has('register'))
                     <a class="btn btn-sm btn-outline-primary" href="{{ route('register') }}" style="margin-left:10px;">Register</a>
