@@ -2,12 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Database\Eloquent\Builder;
-use App\Models\User;
-use App\Models\Post;
-use App\Models\Category;
-use App\Models\Comment;
-use App\Models\Tag;
+use App\Http\Controllers\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,44 +15,14 @@ use App\Models\Tag;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
 
-    $singlepost = Post::where('is_published', 1)->latest()->first();
-    $navs = Category::withCount([
-        'posts',
-        'posts as published_posts_count' => function (Builder $query) {
-            $query->where('is_published', true);
-        },
-    ])->latest()->take(10)->get();
-    $featured = Post::where('is_published', 1)->where('is_featured',1)->with('user', 'category')->latest()->first();
-    $posts = Post::where('is_published', 1)->with('user', 'category')->latest()->paginate(10);
-    $tags = Tag::withCount([
-        'posts',
-        'posts as published_posts_count' => function (Builder $query) {
-            $query->where('is_published', true);
-        },
-    ])->get();
-    $authors = User::withCount([
-        'posts',
-        'posts as published_posts_count' => function (Builder $query) {
-            $query->where('is_published', true);
-        },
-    ])->get();
-    $comments = Comment::where('is_visible', 1)->withCount([
-        'post',
-        'post as published_post_count' => function (Builder $query) {
-            $query->where('is_published', true);
-        },'user'
-    ])->latest()->get();
-    $categories = Category::withCount([
-        'posts',
-        'posts as published_posts_count' => function (Builder $query) {
-            $query->where('is_published', true);
-        },
-    ])->latest()->get();
     
-    return view('welcome', compact('singlepost','navs','featured','posts','categories', 'comments', 'authors', 'tags'));
-});
+});*/
+
+Route::resource('/', homeController::class)->names([
+    'index' => 'home'
+]);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
