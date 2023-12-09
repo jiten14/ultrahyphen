@@ -98,7 +98,7 @@
       </div>
 
       @if (Route::has('login'))
-        <div class="position-relative .d-sm-none .d-md-block">
+        <div class="position-relative d-sm-none d-md-block">
           @auth
             <a href="{{ url('/dashboard') }}" class="btn btn-primary">Dashboard</a>
           @else
