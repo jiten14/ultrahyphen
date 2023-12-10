@@ -77,7 +77,7 @@
           <li><a href="contact.html">Contact</a></li>
         </ul>
       </nav><!-- .navbar -->
-
+      <i class="bi bi-list mobile-nav-toggle"></i>
       {{--<div class="position-relative">
         <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
         <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
@@ -107,7 +107,7 @@
               <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
             @endif
           @endauth
-          <i class="bi bi-list mobile-nav-toggle"></i>
+          
         </div>
       @endif
 
