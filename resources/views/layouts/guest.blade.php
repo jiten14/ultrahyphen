@@ -84,7 +84,7 @@
         <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
 
         <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
-        <i class="bi bi-list mobile-nav-toggle"></i>
+        
 
         <!-- ======= Search Form ======= -->
         <div class="search-form-wrap js-search-form-wrap">
@@ -98,7 +98,7 @@
       </div>--}}
 
       @if (Route::has('login'))
-        <div class="position-relative d-none d-sm-block">
+        <div class="position-relative">
           @auth
             <a href="{{ url('/dashboard') }}" class="btn btn-primary">Dashboard</a>
           @else
@@ -107,6 +107,7 @@
               <a href="{{ route('register') }}" class="btn btn-secondary">Register</a>
             @endif
           @endauth
+          <i class="bi bi-list mobile-nav-toggle"></i>
         </div>
       @endif
 
