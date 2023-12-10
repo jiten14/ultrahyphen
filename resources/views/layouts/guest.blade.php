@@ -78,7 +78,7 @@
         </ul>
       </nav><!-- .navbar -->
 
-      <div class="position-relative d-none d-sm-block">
+      {{--<div class="position-relative">
         <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
         <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
         <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
@@ -95,7 +95,7 @@
           </form>
         </div><!-- End Search Form -->
 
-      </div>
+      </div>--}}
 
       @if (Route::has('login'))
         <div class="position-relative d-none d-sm-block">
