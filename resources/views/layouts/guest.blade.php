@@ -41,7 +41,29 @@
 <body>
 
   <!-- ======= Header ======= -->
-  <header id="header" class="header d-flex align-items-center fixed-top">
+  <section id="topbar" class="topbar d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        @if (Route::has('login'))
+          @auth
+            <i class="bi bi-speedometer2 d-flex align-items-center"><a href="{{ url('/dashboard') }}">Dashboard</a></i>
+          @else
+            <i class="bi bi-box-arrow-in-right d-flex align-items-center"><a href="{{ route('login') }}">Login</a></i>
+            @if (Route::has('register'))
+              <i class="bi bi-person-add d-flex align-items-center ms-4"><a href="{{ route('register') }}">Register</a></i>
+            @endif
+          @endauth
+        @endif
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+    </div>
+  </section><!-- End Top Bar -->
+  <header id="header" class="header d-flex align-items-center">
     <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
 
       <a href="{{ url('') }}" class="logo d-flex align-items-center">
@@ -54,38 +76,9 @@
         <ul>
           <li><a href="index.html">Blog</a></li>
           <li><a href="single-post.html">Single Post</a></li>
-          
-          @if (Route::has('login'))
-            @auth
-              <li><a href="{{ url('/dashboard') }}" class="getstarted">Dashboard</a></li>
-            @else
-              <li><a href="{{ route('login') }}" class="getstarted">Login</a></li>
-              @if (Route::has('register'))
-                <li><a href="{{ route('register') }}" class="getstarted">Register</a></li>
-              @endif
-            @endauth
-          @endif
         </ul>
       </nav><!-- .navbar -->
       <i class="bi bi-list mobile-nav-toggle"></i>
-      {{--<div class="position-relative">
-        <a href="#" class="mx-2"><span class="bi-facebook"></span></a>
-        <a href="#" class="mx-2"><span class="bi-twitter"></span></a>
-        <a href="#" class="mx-2"><span class="bi-instagram"></span></a>
-
-        <a href="#" class="mx-2 js-search-open"><span class="bi-search"></span></a>
-        
-
-        <!-- ======= Search Form ======= -->
-        <div class="search-form-wrap js-search-form-wrap">
-          <form action="search-result.html" class="search-form">
-            <span class="icon bi-search"></span>
-            <input type="text" placeholder="Search" class="form-control">
-            <button class="btn js-search-close"><span class="bi-x"></span></button>
-          </form>
-        </div><!-- End Search Form -->
-
-      </div>--}}
 
     </div>
 
