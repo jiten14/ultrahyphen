@@ -19,7 +19,7 @@ class Comment extends Model
     ];
 
     protected $casts = [
-        'is_published' => 'boolean',
+        'is_visible' => 'boolean',
     ];
 
     public function user(): BelongsTo

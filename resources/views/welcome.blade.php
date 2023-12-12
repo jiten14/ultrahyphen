@@ -11,10 +11,10 @@
                 <div class="swiper-wrapper">
                   @foreach($featureds as $featured)
                   <div class="swiper-slide">
-                    <a href="single-post.html" class="img-bg d-flex align-items-end" style="background-image: url('/storage/{{$featured->image}}');">
+                    <a href="{{ URL::to('/post/' . $featured->id) }}" class="img-bg d-flex align-items-end" style="background-image: url('/storage/{{$featured->image}}');">
                       <div class="img-bg-inner">
                         <h2>{{$featured->title}}</h2>
-                        <p>{{$featured->content}}</p>
+                        <p>{!!Illuminate\Support\Str::words($featured->content, 100, '...')!!}</p>
                       </div>
                     </a>
                   </div>
@@ -43,10 +43,10 @@
             <div class="post-entry-1 lg">
               @foreach($posts as $post)
                 @once
-                  <a href="single-post.html"><img src="/storage/{{$post->image}}" alt="" class="img-fluid"></a>
+                  <a href="{{ URL::to('/post/' . $post->id) }}"><img src="/storage/{{$post->image}}" alt="" class="img-fluid"></a>
                   <div class="post-meta"><span class="date">{{$post->category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span></div>
-                  <h2><a href="single-post.html">{{$post->title}}</a></h2>
-                  <p class="mb-4 d-block">{{$post->content}}</p>
+                  <h2><a href="{{ URL::to('/post/' . $post->id) }}">{{$post->title}}</a></h2>
+                  <p class="mb-4 d-block">{!!Illuminate\Support\Str::words($post->content, 100, '...')!!}</p>
     
                   <div class="d-flex align-items-center author">
                     <div class="photo"><img src="assets/img/person-1.jpg" alt="" class="img-fluid"></div>
@@ -87,9 +87,9 @@
                       @if ($loop->first) @continue @endif
                       <div class="col-lg-6">
                         <div class="post-entry-1">
-                          <a href="single-post.html"><img src="/storage/{{$post->image}}" alt="" class="img-fluid"></a>
+                          <a href="{{ URL::to('/post/' . $post->id) }}"><img src="/storage/{{$post->image}}" alt="" class="img-fluid"></a>
                           <div class="post-meta"><span class="date">{{$post->category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span></div>
-                          <h2><a href="single-post.html">{{$post->title}}</a></h2>
+                          <h2><a href="{{ URL::to('/post/' . $post->id) }}">{{$post->title}}</a></h2>
                         </div>
                       </div>
                       @endforeach
@@ -165,10 +165,10 @@
                         @foreach($category->posts as $catpost)
                         @if($catpost->is_featured == 1)
                         <div class="swiper-slide">
-                          <a href="single-post.html" class="img-bg d-flex align-items-end" style="background-image: url('/storage/{{$catpost->image}}');">
+                          <a href="{{ URL::to('/post/' . $catpost->id) }}" class="img-bg d-flex align-items-end" style="background-image: url('/storage/{{$catpost->image}}');">
                             <div class="img-bg-inner">
                               <h2>{{$catpost->title}}</h2>
-                              <p>{{$catpost->content}}</p>
+                              <p>{!!Illuminate\Support\Str::words($catpost->content, 50, '...')!!}</p>
                             </div>
                           </a>
                         </div>
@@ -191,9 +191,9 @@
               @foreach($category->posts as $catpost)
               <div class="col-md-3">
                 <div class="post-entry-1 border-bottom">
-                  <a href="single-post.html"><img src="/storage/{{$catpost->image}}" alt="" class="img-fluid"></a>
+                  <a href="{{ URL::to('/post/' . $catpost->id) }}"><img src="/storage/{{$catpost->image}}" alt="" class="img-fluid"></a>
                   <div class="post-meta"><span class="date">{{$category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($catpost->created_at)->format('j F, Y')}}</span></div>
-                  <h2><a href="single-post.html">{{$catpost->title}}</a></h2>
+                  <h2><a href="{{ URL::to('/post/' . $catpost->id) }}">{{$catpost->title}}</a></h2>
                 </div>
               </div>
               @endforeach

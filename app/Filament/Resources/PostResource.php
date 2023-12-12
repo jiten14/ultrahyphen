@@ -47,7 +47,7 @@ class PostResource extends Resource
                             ->unique(Post::class, 'slug', ignoreRecord: true),
                         Toggle::make('is_featured')
                         ->label('Featured'),
-                        Forms\Components\MarkdownEditor::make('content')
+                        Forms\Components\RichEditor::make('content')
                             ->required()
                             ->columnSpan('full'),
                         Forms\Components\FileUpload::make('image')
@@ -140,11 +140,11 @@ class PostResource extends Resource
                 Infolists\Components\Section::make()
                     ->schema([
                     Infolists\Components\ImageEntry::make('image')
-                                        ->width(1080)
+                                        ->width('100%')
                                         ->height(480)
                                         ->columnSpanFull()
                                         ->hiddenLabel(),
-                    Infolists\Components\TextEntry::make('content')->columnSpan(2),
+                    Infolists\Components\TextEntry::make('content')->html()->columnSpan(2),
                     Infolists\Components\IconEntry::make('is_featured')
                                                 ->label('featured')
                                                 ->boolean(),

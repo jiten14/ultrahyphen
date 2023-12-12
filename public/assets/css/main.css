@@ -976,9 +976,9 @@ section {
 /*--------------------------------------------------------------
 # Comments
 --------------------------------------------------------------*/
-.comment {
-  /* Font not working in <textarea> for this version of bs */
-}
+/*.comment {
+  /* Font not working in <textarea> for this version of bs
+}*/
 
 .comment .avatar {
   position: relative;
@@ -1348,4 +1348,17 @@ section {
 
 .footer .credits a {
   color: var(--color-white);
+}
+
+pre{
+  background-color: black;
+    border-radius: .375rem;
+    color: white;
+    font-size: .875em;
+    font-weight: 400;
+    line-height: 1.7142857;
+    margin-bottom: 1.7142857em;
+    margin-top: 1.7142857em;
+    overflow-x: auto;
+    padding: .8571429em 1.1428571em
 }

@@ -15,14 +15,13 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-/*Route::get('/', function () {
+Route::controller(HomeController::class)->group(function(){
 
-    
-});*/
+    Route::get('/', 'index')->name('home');
+    Route::get('post/{id}', 'show')->name('view');
+    Route::post('comment/post/{id}', 'savecomment')->name('commentsave');
 
-Route::resource('/', homeController::class)->names([
-    'index' => 'home'
-]);
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');

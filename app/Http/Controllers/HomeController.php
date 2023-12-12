@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Post;
 use App\Models\Category;
@@ -15,6 +16,7 @@ class HomeController extends Controller
     /**
      * Display a listing of the resource.
      */
+
     public function index()
     {
         $singlepost = Post::where('is_published', 1)->latest()->first();
@@ -54,7 +56,13 @@ class HomeController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $post = Post::with('category','user')->find($id);
+        $comments = Post::find($id)->comments()
+                    ->where('is_visible', '1')
+                    ->with('user')
+                    ->get();
+
+        return view('post', compact('post', 'comments'));
     }
 
     /**
@@ -79,5 +87,16 @@ class HomeController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function savecomment(Request $request, string $id)
+    {
+        $comment = new comment;
+            $comment->user_id       = Auth::user()->id;
+            $comment->post_id      = $id;
+            $comment->content = $request->input('comment-message');
+            $comment->is_visible      = 0;
+            $comment->save();
+        return back()->with('status', 'Comment posted.It is under Review.');
     }
 }
