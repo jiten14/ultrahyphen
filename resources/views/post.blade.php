@@ -41,22 +41,12 @@
                     <h6 class="me-2">{{$comment->user->name}}</h6>
                     <span class="text-muted">{{ $comment->updated_at->diffForHumans() }}</span>
                     @if($comment->user->is(auth()->user()))
-                      <nav id="navbar" class="navbar">
-                        <ul>
-                          <li class="dropdown"><a href="#"><span>Action</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
-                            <ul>
-                              <li><a href="#" class="text-info"  data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a></li>
-                              <li>
-                                <form method="POST" action="{{ URL::to('/comment/delete/' . $comment->id) }}">
-                                  @csrf
-                                  @method('delete')
-                                  <a href="{{ URL::to('/comment/delete/' . $comment->id) }}" class="text-danger" onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
-                                </form>
-                              </li>
-                            </ul>
-                          </li>
-                        </ul>
-                      </nav><!-- .navbar -->
+                    &nbsp;&nbsp;<a href="#" class="text-info"  data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>&nbsp;//&nbsp;
+                      <form method="POST" action="{{ URL::to('/comment/delete/' . $comment->id) }}">
+                        @csrf
+                        @method('delete')
+                        <a href="{{ URL::to('/comment/delete/' . $comment->id) }}" class="text-danger" onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                      </form>
                       <!-- Modal -->
                       <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
