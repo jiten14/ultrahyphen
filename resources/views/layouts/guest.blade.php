@@ -47,6 +47,12 @@
         @if (Route::has('login'))
           @auth
             <i class="bi bi-speedometer2 d-flex align-items-center"><a href="{{ url('/dashboard') }}">Dashboard</a></i>
+            <form class="row g-3 needs-validation" method="POST" action="{{ route('logout') }}">
+              @csrf
+              <i class="bi bi-box-arrow-left d-flex align-items-center ms-4">
+                <a href="{{ route('logout') }}"onclick="event.preventDefault(); this.closest('form').submit();">Logout</a>
+              </i>
+            </form>
           @else
             <i class="bi bi-box-arrow-in-right d-flex align-items-center"><a href="{{ route('login') }}">Login</a></i>
             @if (Route::has('register'))
