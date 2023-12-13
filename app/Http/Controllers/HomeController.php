@@ -99,4 +99,18 @@ class HomeController extends Controller
             $comment->save();
         return back()->with('status', 'Comment posted.It is under Review.');
     }
+
+    public function deletecomment(Request $request, string $id)
+    {
+        Comment::where('id', $id)->delete();
+        return back()->with('status', 'Comment Deleted!.');
+    }
+
+    public function updatecomment(Request $request, string $id)
+    {
+        Comment::find($id)->update([
+            'content' => request('comment-message'),
+        ]);
+        return back()->with('status', 'Comment Updated!.');
+    }
 }

@@ -15,11 +15,18 @@
 
             <!-- ======= Comments ======= -->
             <div class="comments">
+              @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+              @endif
                 <h5 class="comment-title py-4">
-                    @if(count($comments)>1)
-                        {{count($comments)}} Comments
+                    @if(count($comments)== 0)
+                      No Comments
+                    @elseif(count($comments)==1)
+                      {{count($comments)}} Comment
                     @else
-                        {{count($comments)}} Comment
+                        {{count($comments)}} Comments
                     @endif
                 </h5>
                 @foreach($comments as $comment)
@@ -32,7 +39,48 @@
                 <div class="flex-grow-1 ms-2 ms-sm-3">
                   <div class="comment-meta d-flex align-items-baseline">
                     <h6 class="me-2">{{$comment->user->name}}</h6>
-                    <span class="text-muted">{{ $comment->created_at->diffForHumans() }}</span>
+                    <span class="text-muted">{{ $comment->updated_at->diffForHumans() }}</span>
+                    @if($comment->user->is(auth()->user()))
+                      <nav id="navbar" class="navbar">
+                        <ul>
+                          <li class="dropdown"><a href="#"><span>Action</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+                            <ul>
+                              <li><a href="#" class="text-info"  data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a></li>
+                              <li>
+                                <form method="POST" action="{{ URL::to('/comment/delete/' . $comment->id) }}">
+                                  @csrf
+                                  @method('delete')
+                                  <a href="{{ URL::to('/comment/delete/' . $comment->id) }}" class="text-danger" onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                                </form>
+                              </li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </nav><!-- .navbar -->
+                      <!-- Modal -->
+                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                              <form method="post" action="{{ URL::to('/comment/update/' . $comment->id) }}">
+                                @csrf
+                                @method('patch')
+                              <div class="col-12 mb-3">
+                                <textarea class="form-control" name="comment-message" id="comment-message" placeholder="Enter your message" cols="30" rows="10">{{$comment->content}}</textarea>
+                              </div>
+                              <div class="col-12">
+                                <input type="submit" class="btn btn-primary" value="Update comment">
+                              </div>
+                            </form>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    @endif
                   </div>
                   <div class="comment-body">
                     {{$comment->content}}
@@ -85,23 +133,22 @@
 
               <div class="col-lg-12">
                 @auth
-                @if (session('status'))
-                    <div class="alert alert-success">
-                        {{ session('status') }}
+                  @if(Auth::user()->hasVerifiedEmail())
+                    <h5 class="comment-title">Leave a Comment</h5>
+                    <div class="row">
+                    <form method="post" action="{{ URL::to('/comment/post/' . $post->id) }}">
+                        @csrf
+                      <div class="col-12 mb-3">
+                        <textarea class="form-control" name="comment-message" id="comment-message" placeholder="Enter your message" cols="30" rows="10"></textarea>
+                      </div>
+                      <div class="col-12">
+                        <input type="submit" class="btn btn-primary" value="Post comment">
+                      </div>
+                    </form>
                     </div>
-                @endif
-                <h5 class="comment-title">Leave a Comment</h5>
-                <div class="row">
-                <form method="post" action="{{ URL::to('/comment/post/' . $post->id) }}">
-                    @csrf
-                  <div class="col-12 mb-3">
-                    <textarea class="form-control" name="comment-message" id="comment-message" placeholder="Enter your message" cols="30" rows="10"></textarea>
-                  </div>
-                  <div class="col-12">
-                    <input type="submit" class="btn btn-primary" value="Post comment">
-                  </div>
-                </form>
-                </div>
+                  @else
+                    <h5 class="comment-title">Please Verify your Email to Leave a Comment</h5>
+                  @endif
                 @else
                     <h5 class="comment-title">Please Login to Leave a Comment</h5>
                 @endauth

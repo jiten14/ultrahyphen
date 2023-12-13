@@ -20,6 +20,8 @@ Route::controller(HomeController::class)->group(function(){
     Route::get('/', 'index')->name('home');
     Route::get('post/{id}', 'show')->name('view');
     Route::post('comment/post/{id}', 'savecomment')->name('commentsave');
+    Route::delete('comment/delete/{id}', 'deletecomment')->name('commentdelete');
+    Route::patch('comment/update/{id}', 'updatecomment')->name('commentupdate');
 
 });
 
