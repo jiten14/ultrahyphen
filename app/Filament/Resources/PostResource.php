@@ -141,7 +141,7 @@ class PostResource extends Resource
                     ->schema([
                     Infolists\Components\ImageEntry::make('image')
                                         ->width('100%')
-                                        ->height(480)
+                                        ->height('auto')
                                         ->columnSpanFull()
                                         ->hiddenLabel(),
                     Infolists\Components\TextEntry::make('content')->html()->columnSpan(2),
