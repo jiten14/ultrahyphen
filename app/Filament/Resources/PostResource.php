@@ -142,7 +142,7 @@ class PostResource extends Resource
                     Infolists\Components\ImageEntry::make('image')
                                         ->width('100%')
                                         ->height('auto')
-                                        ->columnSpanFull()
+                                        ->columnSpan(2)
                                         ->hiddenLabel(),
                     Infolists\Components\TextEntry::make('content')->html()->columnSpan(2),
                     Infolists\Components\IconEntry::make('is_featured')
