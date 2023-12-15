@@ -11,7 +11,7 @@
                 <div class="swiper-wrapper">
                   @foreach($featureds as $featured)
                   <div class="swiper-slide">
-                    <a href="{{ URL::to('/post/' . $featured->slug) }}" class="img-bg d-flex align-items-end" style="background-image: url('/storage/{{$featured->image}}');">
+                    <a href="{{ URL::to('/' . $featured->slug) }}" class="img-bg d-flex align-items-end" style="background-image: url('/storage/{{$featured->image}}');">
                       <div class="img-bg-inner">
                         <h2>{{$featured->title}}</h2>
                         <p>{!!Illuminate\Support\Str::words($featured->content, 100, '...')!!}</p>
@@ -43,12 +43,12 @@
             <div class="post-entry-1 lg">
               @foreach($posts as $post)
                 @once
-                  <a href="{{ URL::to('/post/' . $post->slug) }}"><img src="/storage/{{$post->image}}" alt="" class="img-fluid"></a>
+                  <a href="{{ URL::to('/' . $post->slug) }}"><img src="/storage/{{$post->image}}" alt="" class="img-fluid"></a>
                   <div class="post-meta"><span class="date">{{$post->category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span></div>
                   <div class="post-meta"><i class="bi bi-heart-fill"></i>{{$post->likedUsers->count()}} || <i class="bi bi-eye-fill"></i>{{$post->view_count}}
                     || <i class="bi bi-chat-dots-fill"></i>{{$post->comments_count}}
                   </div>
-                  <h2><a href="{{ URL::to('/post/' . $post->slug) }}">{{$post->title}}</a></h2>
+                  <h2><a href="{{ URL::to('/' . $post->slug) }}">{{$post->title}}</a></h2>
                   <p class="mb-4 d-block">{!!Illuminate\Support\Str::words($post->content, 100, '...')!!}</p>
     
                   <div class="d-flex align-items-center author">
@@ -90,12 +90,12 @@
                       @if ($loop->first) @continue @endif
                       <div class="col-lg-6">
                         <div class="post-entry-1">
-                          <a href="{{ URL::to('/post/' . $post->slug) }}"><img src="/storage/{{$post->image}}" alt="" class="img-fluid"></a>
+                          <a href="{{ URL::to('/' . $post->slug) }}"><img src="/storage/{{$post->image}}" alt="" class="img-fluid"></a>
                           <div class="post-meta"><span class="date">{{$post->category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span></div>
                           <div class="post-meta"><i class="bi bi-heart-fill"></i>{{$post->likedUsers->count()}} || <i class="bi bi-eye-fill"></i>{{$post->view_count}}
                             || <i class="bi bi-chat-dots-fill"></i>{{$post->comments_count}}
                           </div>
-                          <h2><a href="{{ URL::to('/post/' . $post->slug) }}">{{$post->title}}</a></h2>
+                          <h2><a href="{{ URL::to('/' . $post->slug) }}">{{$post->title}}</a></h2>
                         </div>
                       </div>
                       @endforeach
@@ -110,7 +110,7 @@
                   <ul class="trending-post">
                     @foreach($trendings as $index=>$trending)
                     <li>
-                      <a href="{{ URL::to('/post/' . $trending->slug) }}">
+                      <a href="{{ URL::to('/' . $trending->slug) }}">
                         <span class="number">{{$index+1}}</span>
                         <h3>{{$trending->title}}</h3>
                         <span class="author">{{$trending->user->name}}</span>
@@ -148,7 +148,7 @@
                         @foreach($category->posts as $catpost)
                         @if($catpost->is_featured == 1)
                         <div class="swiper-slide">
-                          <a href="{{ URL::to('/post/' . $catpost->slug) }}" class="img-bg d-flex align-items-end" style="background-image: url('/storage/{{$catpost->image}}');">
+                          <a href="{{ URL::to('/' . $catpost->slug) }}" class="img-bg d-flex align-items-end" style="background-image: url('/storage/{{$catpost->image}}');">
                             <div class="img-bg-inner">
                               <h2>{{$catpost->title}}</h2>
                               <p>{!!Illuminate\Support\Str::words($catpost->content, 50, '...')!!}</p>
@@ -175,10 +175,10 @@
               @if($loop->iteration<=4)
               <div class="col-md-3">
                 <div class="post-entry-1 border-bottom">
-                  <a href="{{ URL::to('/post/' . $catpost->slug) }}"><img src="/storage/{{$catpost->image}}" alt="" class="img-fluid"></a>
+                  <a href="{{ URL::to('/' . $catpost->slug) }}"><img src="/storage/{{$catpost->image}}" alt="" class="img-fluid"></a>
                   <div class="post-meta"><span class="date">{{$category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($catpost->created_at)->format('j F, Y')}}</span></div>
                   <div class="post-meta"><i class="bi bi-heart-fill"></i>{{$post->likedUsers->count()}} || <i class="bi bi-eye-fill"></i>{{$catpost->view_count}}</div>
-                  <h2><a href="{{ URL::to('/post/' . $catpost->slug) }}">{{$catpost->title}}</a></h2>
+                  <h2><a href="{{ URL::to('/' . $catpost->slug) }}">{{$catpost->title}}</a></h2>
                 </div>
               </div>
               @endif

@@ -1,6 +1,4 @@
 <x-gal-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
     
     <main>
         <div class="container">
@@ -28,6 +26,9 @@
                             </ul>
                         </div>
                     @endif
+
+                    <!-- Session Status -->
+                    <x-auth-session-status class="alert alert-success" :status="session('status')" />
     
                     <div class="card-body">
     

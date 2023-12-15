@@ -189,7 +189,7 @@
                   @foreach($populars as $popular)
                   <div class="post-entry-1 border-bottom">
                     <div class="post-meta"><span class="date">{{$popular->category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($popular->created_at)->format('j F, Y')}}</span></div>
-                    <h2 class="mb-2"><a href="{{ URL::to('/post/' . $popular->slug) }}">{{$popular->title}}</a></h2>
+                    <h2 class="mb-2"><a href="{{ URL::to('/' . $popular->slug) }}">{{$popular->title}}</a></h2>
                     <span class="author mb-3 d-block">{{$popular->user->name}}</span>
                   </div>
                   @endforeach
@@ -200,7 +200,7 @@
                   @foreach($trendings as $trending)
                     <div class="post-entry-1 border-bottom">
                       <div class="post-meta"><span class="date">{{$trending->category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($trending->created_at)->format('j F, Y')}}</span></div>
-                      <h2 class="mb-2"><a href="{{ URL::to('/post/' . $trending->slug) }}">{{$trending->title}}</a></h2>
+                      <h2 class="mb-2"><a href="{{ URL::to('/' . $trending->slug) }}">{{$trending->title}}</a></h2>
                       <span class="author mb-3 d-block">{{$trending->user->name}}</span>
                     </div>
                   @endforeach
@@ -211,7 +211,7 @@
                   @foreach($latestposts as $lpost)
                     <div class="post-entry-1 border-bottom">
                       <div class="post-meta"><span class="date">{{$lpost->category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($lpost->created_at)->format('j F, Y')}}</span></div>
-                      <h2 class="mb-2"><a href="{{ URL::to('/post/' . $lpost->slug) }}">{{$lpost->title}}</a></h2>
+                      <h2 class="mb-2"><a href="{{ URL::to('/' . $lpost->slug) }}">{{$lpost->title}}</a></h2>
                       <span class="author mb-3 d-block">{{$lpost->user->name}}</span>
                     </div>
                   @endforeach
