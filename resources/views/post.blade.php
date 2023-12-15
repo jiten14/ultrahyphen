@@ -50,90 +50,91 @@
                     @endif
                 </h5>
                 @foreach($comments as $comment)
-              <div class="comment d-flex mb-4">
-                <div class="flex-shrink-0">
-                  <div class="avatar avatar-sm rounded-circle">
-                    <img class="avatar-img" src="../assets/img/person-5.jpg" alt="" class="img-fluid">
-                  </div>
-                </div>
-                <div class="flex-grow-1 ms-2 ms-sm-3">
-                  <div class="comment-meta d-flex align-items-baseline">
-                    <h6 class="me-2">{{$comment->user->name}}</h6>
-                    <span class="text-muted">{{ $comment->updated_at->diffForHumans() }}</span>
-                    @if($comment->user->is(auth()->user()))
-                    &nbsp;&nbsp;<a href="#" class="text-info"  data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</a>&nbsp;//&nbsp;
-                      <form method="POST" action="{{ URL::to('/comment/delete/' . $comment->id) }}">
-                        @csrf
-                        @method('delete')
-                        <a href="{{ URL::to('/comment/delete/' . $comment->id) }}" class="text-danger" onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
-                      </form>
-                      <!-- Modal -->
-                      <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  <div class="comment d-flex mb-4">
+                    <div class="flex-shrink-0">
+                      <div class="avatar avatar-sm rounded-circle">
+                        <img class="avatar-img" src="../assets/img/person-5.jpg" alt="" class="img-fluid">
+                      </div>
+                    </div>
+                    <div class="flex-grow-1 ms-2 ms-sm-3">
+                      <div class="comment-meta d-flex align-items-baseline">
+                        <h6 class="me-2">{{$comment->user->name}}</h6>
+                        <span class="text-muted">{{ $comment->updated_at->diffForHumans() }}</span>
+                        {{$comment->id}}
+                        @if($comment->user->is(auth()->user()))
+                        &nbsp;&nbsp;<a href="#" class="text-info"  data-bs-toggle="modal" data-bs-target="#exampleModal-{{$comment->id}}">Edit</a>&nbsp;//&nbsp;
+                          <form method="POST" action="{{ URL::to('/comment/delete/' . $comment->id) }}">
+                            @csrf
+                            @method('delete')
+                            <a href="{{ URL::to('/comment/delete/' . $comment->id) }}" class="text-danger" onclick="event.preventDefault(); this.closest('form').submit();">Delete</a>
+                          </form>
+                          <!-- Modal -->
+                          <div class="modal fade" id="exampleModal-{{$comment->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h1 class="modal-title fs-5" id="exampleModalLabel">Update Comment</h1>
+                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                  <form method="post" action="{{ route('commentupdate', $comment->id) }}">
+                                    @csrf
+                                    @method('patch')
+                                  <div class="col-12 mb-3">
+                                    <textarea class="form-control" name="comment-message" id="comment-message" placeholder="Enter your message" cols="30" rows="10">{{$comment->content}}</textarea>
+                                  </div>
+                                  <div class="col-12">
+                                    <input type="submit" class="btn btn-primary" value="Update comment">
+                                  </div>
+                                </form>
+                                </div>
+                              </div>
                             </div>
-                            <div class="modal-body">
-                              <form method="post" action="{{ URL::to('/comment/update/' . $comment->id) }}">
-                                @csrf
-                                @method('patch')
-                              <div class="col-12 mb-3">
-                                <textarea class="form-control" name="comment-message" id="comment-message" placeholder="Enter your message" cols="30" rows="10">{{$comment->content}}</textarea>
-                              </div>
-                              <div class="col-12">
-                                <input type="submit" class="btn btn-primary" value="Update comment">
-                              </div>
-                            </form>
+                          </div>
+                        @endif
+                      </div>
+                      <div class="comment-body">
+                        {{$comment->content}}
+                      </div>
+
+                      {{--<div class="comment-replies bg-light p-3 mt-3 rounded">
+                        <h6 class="comment-replies-title mb-4 text-muted text-uppercase">2 replies</h6>
+
+                        <div class="reply d-flex mb-4">
+                          <div class="flex-shrink-0">
+                            <div class="avatar avatar-sm rounded-circle">
+                              <img class="avatar-img" src="assets/img/person-4.jpg" alt="" class="img-fluid">
+                            </div>
+                          </div>
+                          <div class="flex-grow-1 ms-2 ms-sm-3">
+                            <div class="reply-meta d-flex align-items-baseline">
+                              <h6 class="mb-0 me-2">Brandon Smith</h6>
+                              <span class="text-muted">2d</span>
+                            </div>
+                            <div class="reply-body">
+                              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                             </div>
                           </div>
                         </div>
-                      </div>
-                    @endif
-                  </div>
-                  <div class="comment-body">
-                    {{$comment->content}}
-                  </div>
-
-                  {{--<div class="comment-replies bg-light p-3 mt-3 rounded">
-                    <h6 class="comment-replies-title mb-4 text-muted text-uppercase">2 replies</h6>
-
-                    <div class="reply d-flex mb-4">
-                      <div class="flex-shrink-0">
-                        <div class="avatar avatar-sm rounded-circle">
-                          <img class="avatar-img" src="assets/img/person-4.jpg" alt="" class="img-fluid">
+                        <div class="reply d-flex">
+                          <div class="flex-shrink-0">
+                            <div class="avatar avatar-sm rounded-circle">
+                              <img class="avatar-img" src="assets/img/person-3.jpg" alt="" class="img-fluid">
+                            </div>
+                          </div>
+                          <div class="flex-grow-1 ms-2 ms-sm-3">
+                            <div class="reply-meta d-flex align-items-baseline">
+                              <h6 class="mb-0 me-2">James Parsons</h6>
+                              <span class="text-muted">1d</span>
+                            </div>
+                            <div class="reply-body">
+                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="flex-grow-1 ms-2 ms-sm-3">
-                        <div class="reply-meta d-flex align-items-baseline">
-                          <h6 class="mb-0 me-2">Brandon Smith</h6>
-                          <span class="text-muted">2d</span>
-                        </div>
-                        <div class="reply-body">
-                          Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                        </div>
-                      </div>
+                      </div>--}}
                     </div>
-                    <div class="reply d-flex">
-                      <div class="flex-shrink-0">
-                        <div class="avatar avatar-sm rounded-circle">
-                          <img class="avatar-img" src="assets/img/person-3.jpg" alt="" class="img-fluid">
-                        </div>
-                      </div>
-                      <div class="flex-grow-1 ms-2 ms-sm-3">
-                        <div class="reply-meta d-flex align-items-baseline">
-                          <h6 class="mb-0 me-2">James Parsons</h6>
-                          <span class="text-muted">1d</span>
-                        </div>
-                        <div class="reply-body">
-                          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
-                        </div>
-                      </div>
-                    </div>
-                  </div>--}}
-                </div>
-              </div>
+                  </div>
               @endforeach
             </div><!-- End Comments -->
 
