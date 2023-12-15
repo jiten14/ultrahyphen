@@ -12,6 +12,7 @@
 
             <!-- ======= Single Post Content ======= -->
             <div class="single-post">
+              <a href="{{ URL::to('/' . $post->slug) }}"><img src="/storage/{{$post->image}}" alt="" class="img-fluid shadow p-3 mb-5 bg-body rounded"></a>
               <div class="post-meta"><span class="date">{{$post->category->name}}</span> <span class="mx-1">&bullet;</span> <span>{{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span></div>
               @auth
                 <div class="post-meta">
@@ -36,6 +37,14 @@
               @endauth
               <h1 class="mb-5">{{$post->title}}</h1>
               <p>{!!$post->content!!}</p>
+              <div>
+                <h3>Tags</h3>
+                <ul class="aside-tags list-unstyled">
+                  @foreach($post->tags as $tag)
+                      <li><a href="{{ URL::to('/tag/' . $tag->slug) }}">{{$tag->name}}</a></li>
+                  @endforeach
+                </ul>
+              </div><!-- End Single Area Tags -->
             </div><!-- End Single Post Content -->
 
             <!-- ======= Comments ======= -->
@@ -60,7 +69,6 @@
                       <div class="comment-meta d-flex align-items-baseline">
                         <h6 class="me-2">{{$comment->user->name}}</h6>
                         <span class="text-muted">{{ $comment->updated_at->diffForHumans() }}</span>
-                        {{$comment->id}}
                         @if($comment->user->is(auth()->user()))
                         &nbsp;&nbsp;<a href="#" class="text-info"  data-bs-toggle="modal" data-bs-target="#exampleModal-{{$comment->id}}">Edit</a>&nbsp;//&nbsp;
                           <form method="POST" action="{{ URL::to('/comment/delete/' . $comment->id) }}">
@@ -96,43 +104,6 @@
                       <div class="comment-body">
                         {{$comment->content}}
                       </div>
-
-                      {{--<div class="comment-replies bg-light p-3 mt-3 rounded">
-                        <h6 class="comment-replies-title mb-4 text-muted text-uppercase">2 replies</h6>
-
-                        <div class="reply d-flex mb-4">
-                          <div class="flex-shrink-0">
-                            <div class="avatar avatar-sm rounded-circle">
-                              <img class="avatar-img" src="assets/img/person-4.jpg" alt="" class="img-fluid">
-                            </div>
-                          </div>
-                          <div class="flex-grow-1 ms-2 ms-sm-3">
-                            <div class="reply-meta d-flex align-items-baseline">
-                              <h6 class="mb-0 me-2">Brandon Smith</h6>
-                              <span class="text-muted">2d</span>
-                            </div>
-                            <div class="reply-body">
-                              Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                            </div>
-                          </div>
-                        </div>
-                        <div class="reply d-flex">
-                          <div class="flex-shrink-0">
-                            <div class="avatar avatar-sm rounded-circle">
-                              <img class="avatar-img" src="assets/img/person-3.jpg" alt="" class="img-fluid">
-                            </div>
-                          </div>
-                          <div class="flex-grow-1 ms-2 ms-sm-3">
-                            <div class="reply-meta d-flex align-items-baseline">
-                              <h6 class="mb-0 me-2">James Parsons</h6>
-                              <span class="text-muted">1d</span>
-                            </div>
-                            <div class="reply-body">
-                              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore sed eos sapiente, praesentium.
-                            </div>
-                          </div>
-                        </div>
-                      </div>--}}
                     </div>
                   </div>
               @endforeach
@@ -225,7 +196,7 @@
               <h3 class="aside-title">Categories</h3>
               <ul class="aside-links list-unstyled">
                 @foreach($categories as $category)
-                  <li><a href="category.html"><i class="bi bi-chevron-right"></i>{{$category->name}}
+                  <li><a href="{{ URL::to('/category/' . $category->slug) }}"><i class="bi bi-chevron-right"></i>{{$category->name}}
                         <span class="badge rounded-pill bg-danger">{{count($category->posts)}}</span>
                       </a>
                   </li>
@@ -238,7 +209,7 @@
               <ul class="aside-tags list-unstyled">
                 @foreach($tags as $tag)
                   @if(($tag->published_posts_count > 0))
-                    <li><a href="category.html">{{$tag->name}}</a></li>
+                    <li><a href="{{ URL::to('/tag/' . $tag->slug) }}">{{$tag->name}}</a></li>
                   @endif
                 @endforeach
               </ul>

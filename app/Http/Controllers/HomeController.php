@@ -160,4 +160,27 @@ class HomeController extends Controller
         }
         return back()->with('status', 'Your Preference saved!');
     }
+
+    public function scategory(string $slug)
+    {
+        $scategory = Category::where('slug', $slug)->firstOrFail();
+        $id = $scategory->id;
+        $category = Category::withWhereHas('posts', function ($query) {
+            $query->where('is_published', true);
+        })->find($id);
+        $posts = Post::where('category_id', $id)
+                    ->where('is_published', true)
+                    ->with('user','category')
+                    ->paginate(9); 
+        
+        return view('category', compact('category','posts'));        
+    }
+
+    public function stag(string $slug)
+    {
+        $posts = Post::where('is_published', 1)->withAnyTags($slug)->paginate(9);
+        
+        return view('tag', compact('slug','posts'));        
+    }
+
 }

@@ -23,6 +23,8 @@ Route::controller(HomeController::class)->group(function(){
     Route::delete('comment/delete/{id}', 'deletecomment')->name('commentdelete');
     Route::patch('comment/update/{id}', 'updatecomment')->name('commentupdate');
     Route::post('like-post/{post}', 'likePost')->middleware(['auth', 'verified'])->name('postlike');
+    Route::get('/category/{slug}', 'scategory')->name('singlecategory');
+    Route::get('/tag/{slug}', 'stag')->name('singletag');
 
 });
 

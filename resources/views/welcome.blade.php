@@ -136,7 +136,7 @@
           
         <div class="section-header d-flex justify-content-between align-items-center mb-5">
           <h2>{{$category->name}}</h2>
-          <div><a href="category.html" class="more">See All {{$category->name}}</a></div>
+          <div><a href="{{ URL::to('/category/' . $category->slug) }}" class="more">See All {{$category->name}}</a></div>
         </div>
         
 
