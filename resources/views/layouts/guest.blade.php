@@ -28,14 +28,7 @@
   <!-- Template Main CSS Files -->
   <link href="../assets/css/variables.css" rel="stylesheet">
   <link href="../assets/css/main.css" rel="stylesheet">
-
-  <!-- =======================================================
-  * Template Name: ZenBlog
-  * Updated: Sep 18 2023 with Bootstrap v5.3.2
-  * Template URL: https://bootstrapmade.com/zenblog-bootstrap-blog-template/
-  * Author: BootstrapMade.com
-  * License: https:///bootstrapmade.com/license/
-  ======================================================== -->
+  
 </head>
 
 <body>
@@ -43,10 +36,15 @@
   <!-- ======= Header ======= -->
   <section id="topbar" class="topbar d-flex align-items-center">
     <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="social-links d-none d-md-flex align-items-center">
+        <a href="https://twitter.com/" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="https://www.facebook.com/" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="https://www.instagram.com/" class="instagram"><i class="bi bi-instagram"></i></a>
+      </div>
       <div class="contact-info d-flex align-items-center">
         @if (Route::has('login'))
           @auth
-            <i class="bi bi-speedometer2 d-flex align-items-center"><a href="{{ url('/user/dashboard') }}">Dashboard</a></i>
+            {{--<i class="bi bi-speedometer2 d-flex align-items-center"><a href="{{ url('/user/dashboard') }}">Dashboard</a></i>--}}
             <form class="row g-3 needs-validation" method="POST" action="{{ route('logout') }}">
               @csrf
               <i class="bi bi-box-arrow-left d-flex align-items-center ms-4">
@@ -60,11 +58,6 @@
             @endif
           @endauth
         @endif
-      </div>
-      <div class="social-links d-none d-md-flex align-items-center">
-        <a href="https://twitter.com/" class="twitter"><i class="bi bi-twitter"></i></a>
-        <a href="https://www.facebook.com/" class="facebook"><i class="bi bi-facebook"></i></a>
-        <a href="https://www.instagram.com/" class="instagram"><i class="bi bi-instagram"></i></a>
       </div>
     </div>
   </section><!-- End Top Bar -->

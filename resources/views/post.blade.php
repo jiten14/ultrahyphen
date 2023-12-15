@@ -129,7 +129,7 @@
                     </form>
                     </div>
                   @else
-                    <h5 class="comment-title">Please Verify your Email to Leave a Comment</h5>
+                    <h5 class="comment-title">Please <a href="{{route('verification.notice')}}" style="color:red;">Verify your Email</a> to Leave a Comment</h5>
                   @endif
                 @else
                     <h5 class="comment-title">Please Login to Leave a Comment</h5>
