@@ -23,7 +23,7 @@ class RedirectIfNotFilamentAdmin
  
         if ($user instanceof FilamentUser ) {
             if (! $user->canAccessPanel($panel)) {
-                return redirect()->route('dashboard');
+                return redirect()->route('home');
             }
         }
     

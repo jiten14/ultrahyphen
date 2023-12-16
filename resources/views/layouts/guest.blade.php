@@ -94,9 +94,26 @@
 
       <div class="row g-5">
         <div class="col-lg-4">
-          <h3 class="footer-heading">About ZenBlog</h3>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. Explicabo?</p>
-          <p><a href="about.html" class="footer-link-more">Learn More</a></p>
+          @php
+            $awc = \App\Models\Textinfo::where('key','footer-about-us')->count();
+          @endphp
+          @if($awc>0)
+            @foreach(\App\Models\Textinfo::where('key','footer-about-us')->get() as $about)
+              @if($about->active == 1)
+                <h3 class="footer-heading">{{$about->title}}</h3>
+                <p>{!!$about->content!!}</p>
+                <p><a href="{{$about->link}}" class="footer-link-more">Learn More</a></p>
+              @else
+                <h3 class="footer-heading">About Ultra-Hyphen</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. Explicabo?</p>
+                <p><a href="#" class="footer-link-more">Learn More</a></p>
+              @endif
+            @endforeach
+          @else
+            <h3 class="footer-heading">About Ultra-Hyphen</h3>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam ab, perspiciatis beatae autem deleniti voluptate nulla a dolores, exercitationem eveniet libero laudantium recusandae officiis qui aliquid blanditiis omnis quae. Explicabo?</p>
+            <p><a href="#" class="footer-link-more">Learn More</a></p>
+          @endif
         </div>
         <div class="col-6 col-lg-4">
           <h3 class="footer-heading">Categories</h3>
@@ -139,7 +156,20 @@
       <div class="row justify-content-between">
         <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
           <div class="copyright">
-            <strong><a href="{{ url('') }}">{{ config('app.name', 'Laravel') }}</a></strong> © Copyright, {{ \Carbon\Carbon::now()->format('Y')}}. All Rights Reserved
+            @php
+              $fcc = \App\Models\Textinfo::where('key','footer-copy-text')->count();
+            @endphp
+            @if($fcc>0)
+              @foreach(\App\Models\Textinfo::where('key','footer-copy-text')->get() as $copy)
+                @if($copy->active == 1)
+                  {!!$copy->content!!}
+                @else
+                  <strong><a href="{{ url('') }}">{{ config('app.name', 'Laravel') }}</a></strong> © Copyright, {{ \Carbon\Carbon::now()->format('Y')}}. All Rights Reserved
+                @endif
+              @endforeach
+            @else
+              <strong><a href="{{ url('') }}">{{ config('app.name', 'Laravel') }}</a></strong> © Copyright, {{ \Carbon\Carbon::now()->format('Y')}}. All Rights Reserved
+            @endif
           </div>
 
         </div>

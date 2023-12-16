@@ -28,11 +28,18 @@ Route::controller(HomeController::class)->group(function(){
 
 });
 
-/*Route::get('/user/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/pages/about-us', function () {
+    $cap = \App\Models\Textinfo::where('key','page-about-us')->count();
+    if($cap>0){
+        $aboutpage = \App\Models\Textinfo::where('key','page-about-us')->firstorfail();
+        return view('about', compact('aboutpage'));
+    }
+    else{
+        return redirect()->route('home');
+    }
+});
 
-Route::middleware('auth')->group(function () {
+/*Route::middleware('auth')->group(function () {
     Route::get('/user/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/user/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
