@@ -32,17 +32,11 @@ Route::get('/pages/about-us', function () {
     $cap = \App\Models\Textinfo::where('key','page-about-us')->count();
     if($cap>0){
         $aboutpage = \App\Models\Textinfo::where('key','page-about-us')->firstorfail();
-        return view('about', compact('aboutpage'));
+        return view('page', compact('aboutpage'));
     }
     else{
         return redirect()->route('home');
     }
 });
-
-/*Route::middleware('auth')->group(function () {
-    Route::get('/user/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/user/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/user/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});*/
 
 require __DIR__.'/auth.php';

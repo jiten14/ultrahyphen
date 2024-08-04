@@ -37,7 +37,7 @@ class HomeController extends Controller
                 $query->where('is_published', true);
             })->take(3)->get();
 
-            return view('welcome', compact('featureds','posts','categories', 'trendings'));
+            return view('index', compact('featureds','posts','categories', 'trendings'));
         }
         else{
             return '<h1>Add Few Posts</h1>';
@@ -97,7 +97,7 @@ class HomeController extends Controller
 
         $populars = Post::where('is_published', 1)->withCount('likedUsers')->orderByDesc('liked_users_count')->with('category','user')->take(5)->get();
 
-        return view('post', compact('post','comments','trendings','categories','latestposts', 'tags', 'populars'));
+        return view('single', compact('post','comments','trendings','categories','latestposts', 'tags', 'populars'));
     }
 
     /**
@@ -173,14 +173,14 @@ class HomeController extends Controller
                     ->with('user','category')
                     ->paginate(9); 
         
-        return view('category', compact('category','posts'));        
+        return view('archive', compact('category','posts'));        
     }
 
     public function stag(string $slug)
     {
-        $posts = Post::where('is_published', 1)->withAnyTags($slug)->paginate(9);
+        $posts = Post::where('is_published', 1)->withAnyTags($slug)->paginate(8);
         
-        return view('tag', compact('slug','posts'));        
+        return view('archive', compact('slug','posts'));        
     }
 
 }

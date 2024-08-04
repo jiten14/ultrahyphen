@@ -23,4 +23,5 @@ class ListRoles extends ListRecords
     {
         return fn (Model $record): bool => $record->status === Status::Enabled;
     }
+
 }

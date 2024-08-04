@@ -54,6 +54,7 @@ class UserResource extends Resource
                     ->visibleOn('create'),
                 CheckboxList::make('Role')
                     ->relationship('Roles', 'name')
+                    ->disabled(fn ($record) => !is_null($record) AND ($record->name == Auth::user()->name))
                     ->default([2]),
             ]);
     }

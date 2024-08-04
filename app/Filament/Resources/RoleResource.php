@@ -34,6 +34,7 @@ class RoleResource extends Resource
                 TextInput::make('name')
                 ->minLength(2)
                 ->maxLength(255)
+                ->disabled(fn ($record) => !is_null($record) AND ($record->name == 'admin' or $record->name == 'user'))
             ]);
     }
 
