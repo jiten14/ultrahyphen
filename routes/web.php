@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 
@@ -37,6 +36,6 @@ Route::get('/pages/about-us', function () {
     else{
         return redirect()->route('home');
     }
-});
+})->name('about');
 
 require __DIR__.'/auth.php';

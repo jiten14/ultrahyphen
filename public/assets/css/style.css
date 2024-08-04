@@ -103,6 +103,29 @@ a.post-like{
 .post-img:hover .post-like{
     opacity: 1;
 }
+div.img-hover-top-text {
+    position: absolute;
+    left:0%;
+    top: 0%;
+    width:17%;
+    height: 25%;
+    background-color: #ff5733;
+    border-radius: 0px 15px 15px 0px;
+    text-align: center;
+    font-size:0.8em;
+    font-weight: bold;
+    color: white;
+    opacity: 0;
+    transition: opacity .35s ease;
+    z-index: 1;
+}
+.post-img:hover div.img-hover-top-text{
+    opacity: 1;
+}
+p.single-hover{
+    margin-top: 50px;
+    font-size: 1em;
+}
 div.post-trending img {
     height: 30%;
     width: 30%;

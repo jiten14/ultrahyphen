@@ -33,6 +33,9 @@
                                 <div class="post-img">
                                     <img src="/storage/{{$post->image}}" alt="" class="img-fluid img-home-list">
                                     <div class="overlay"></div>
+                                    <div class="img-hover-top-text">
+                                        <p>{{ \Carbon\Carbon::parse($post->created_at)->format('j F')}}</p>
+                                    </div>
                                     @auth
                                     <a href="#" onclick="document.getElementById('like-form-{{$post->id}}').submit();" class="post-like"><i class="bi bi-heart-fill" style="color:{{Auth::user()->likedPosts()->where('post_id', $post->id)->count() >0 ? 'red' : ''}}"></i></a>
                                     <form action="{{route('postlike',$post->id)}}" method="POST" style="display:none;" id="like-form-{{$post->id}}">
@@ -41,7 +44,8 @@
                                     @endauth
                                 </div>
                                 <div class="post-meta">
-                                    <p>{{$post->category->name}}<span> // {{$post->user->name}} //</span><span> {{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span></p>
+                                    <p>{{$post->category->name}}<span> // {{$post->user->name}}</span></p>
+                                    {{--Date Formatting with Year<span> {{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span>--}}
                                 </div>
                                 <h3><a href="{{ URL::to('/' . $post->slug) }}">{{$post->title}}</a></h3>
                                 <p>{!!Illuminate\Support\Str::words($post->content, 100, '...')!!}</p>
@@ -179,13 +183,21 @@
                         <div class="post-img">
                             <img src="/storage/{{$catpost->image}}" alt="" class="img-fluid img-home-list">
                             <div class="overlay"></div>
-                            <a href="#" class="post-like"><i class="bi bi-heart-fill"></i></a>
-                        </div>
-                        <div class="post-meta">
-                            <p>By:- {{$catpost->user->name}} //</span><span> {{ \Carbon\Carbon::parse($catpost->created_at)->format('j F, Y')}}</span></p>
+                            <div class="img-hover-top-text">
+                                <p>{{ \Carbon\Carbon::parse($catpost->created_at)->format('j F')}}</p>
+                            </div>
+                            @auth
+                                <a href="#" onclick="document.getElementById('like-form-{{$catpost->id}}').submit();" class="post-like"><i class="bi bi-heart-fill" style="color:{{Auth::user()->likedPosts()->where('post_id', $catpost->id)->count() >0 ? 'red' : ''}}"></i></a>
+                                <form action="{{route('postlike',$catpost->id)}}" method="POST" style="display:none;" id="like-form-{{$catpost->id}}">
+                                    @csrf
+                                </form>
+                            @endauth
                         </div>
                         <h3><a href="{{ URL::to('/' . $catpost->slug) }}">{{$catpost->title}}</a></h3>
                         <p>{!!Illuminate\Support\Str::words($catpost->content, 100, '...')!!}</p>
+                        <div class="post-meta">
+                            <p>By:-<span>{{$catpost->user->name}}</span></p>
+                        </div>
                         <div class="post-stats">
                             <p><i class="bi bi-eye-fill"></i> {{$catpost->view_count}}<span> // <i class="bi bi-heart-fill"></i> {{$catpost->likedUsers->count()}}</span> // <span><i class="bi bi-chat-dots-fill"></i> {{$catpost->comments_count}}</span></p>
                         </div>

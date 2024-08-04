@@ -42,11 +42,17 @@
                         </div>
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                                <li class="nav-item">
+                                    <a class="nav-link @if(Route::currentRouteName() =='home') active @endif" aria-current="page" href="{{ url('') }}">Home</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link @if(Route::currentRouteName() =='about') active @endif" aria-current="page" href="{{ url('/pages/about-us') }}">About Us</a>
+                                </li>
                                 @foreach(\App\Models\Category::withWhereHas('posts', function ($query) {
                                     $query->where('is_published', true);})
                                           ->take(5)->get() as $menu)
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="{{ URL::to('/category/' . $menu->slug) }}">{!!Illuminate\Support\Str::words($menu->name, 2, '')!!}</a>
+                                    <a class="nav-link" aria-current="page" href="{{ URL::to('/category/' . $menu->slug) }}">{!!Illuminate\Support\Str::words($menu->name, 2, '')!!}</a>
                                 </li>
                                 @endforeach
                             </ul>                        
@@ -130,5 +136,11 @@
       },
     });
   </script>
+  <!-- Add Active Class to Menu -->
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script>
+    var path = window.location.href; // full url
+    $('a[href="'+ path +'"]').addClass('active'); // find by selector url
+  </script><!-- End Active Class Script --> 
   </body>
 </html>

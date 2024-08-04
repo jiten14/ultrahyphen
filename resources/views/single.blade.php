@@ -11,6 +11,9 @@
                         <div class="post-img">
                             <img src="/storage/{{$post->image}}" alt="" class="img-fluid w-100 h-100">
                             <div class="overlay"></div>
+                            <div class="img-hover-top-text">
+                                <p class="single-hover">{{$post->category->name}}</p>
+                            </div>
                             @auth
                             <a href="#" onclick="document.getElementById('like-form-{{$post->id}}').submit();" class="post-like"><i class="bi bi-heart-fill" style="color:{{Auth::user()->likedPosts()->where('post_id', $post->id)->count() >0 ? 'red' : ''}}"></i></a>
                             <form action="{{route('postlike',$post->id)}}" method="POST" style="display:none;" id="like-form-{{$post->id}}">
@@ -22,7 +25,7 @@
                             <p><i class="bi bi-eye-fill"></i> {{$post->view_count}}<span> // <i class="bi bi-heart-fill"></i> {{$post->likedUsers->count()}}</span> // <span><i class="bi bi-chat-dots-fill"></i> {{count($comments)}}</span></p>
                         </div>
                         <div class="post-meta">
-                            <p>{{$post->category->name}}<span> // {{$post->user->name}} //</span><span> {{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span></p>
+                            <p>{{$post->user->name}} //</span><span> {{ \Carbon\Carbon::parse($post->created_at)->format('j F, Y')}}</span></p>
                         </div>
                         <p class="post-content">
                             {!!$post->content!!}
